@@ -24,3 +24,11 @@ $ docker compose up
 ```sh
 $ docker compose exec web python manage.py createsuperuser
 ```
+
+## Usefull commands
+
+### Create migration and migrate to the DB
+```sh
+$ docker compose exec web python manage.py makemigrations
+$ docker compose exec web python manage.py migrate
+```
