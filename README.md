@@ -1,7 +1,9 @@
 # Demo for users location web application
-This application uses Django 4.2 as a Framework. 
+This application uses Django 4.2 as a Framework.
 
-It has been dockerized to facilitate its startup. There are two docker services running which are `web` for Django and `db` for the PostGIS database.
+Docker is required to start the application. Get docker here: https://docs.docker.com/get-docker/. For GNU/Linux OS based, docker engine is prefered.
+
+It has been dockerized to facilitate its startup and to be a standalone app. There are two docker services running which are `web` for Django and `db` for the PostGIS database.
 
 ## Quick start
 
