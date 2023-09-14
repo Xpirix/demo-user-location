@@ -59,9 +59,9 @@
         </li>
         <li class="nav-item">
           <a
-            class="nav-link {% if 'map' in segment %} active {% endif %}"
-            style="{% if 'map' in segment %} background-color: #DDECF3 {% endif %}"
-            href=""
+            class="nav-link {% if 'users_map' in segment %} active {% endif %}"
+            style="{% if 'users_map' in segment %} background-color: #DDECF3 {% endif %}"
+            href="{% url 'users_map' %}"
           >
             <i class="ni ni-pin-3 text-primary"></i>
             <span class="nav-link-text">Map</span>

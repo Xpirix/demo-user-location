@@ -1,12 +1,11 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-{% load i18n %}
 
 
 {% block title %} Profile {% endblock title %}
 
 {% block content %}
-
+    {% csrf_token %}
     <div class="form-group">
         <div class="header pb-6 d-flex align-items-center"
              style="min-height: 500px; background-image: url({% static 'assets/img/theme/profile-cover.jpg' %}); background-size: cover; background-position: center top;">

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 from appUsers.forms import UserProfileForm
 
@@ -43,3 +44,13 @@ def edit_profile(request):
     }
     
     return render(request, 'dashboard/edit_profile.html', args)
+
+
+@login_required(login_url="/")
+def users_map(request):
+    
+    args = {
+        "segment": "users_map",
+
+    }
+    return render(request, 'dashboard/users_map.html', args)
