@@ -60,7 +60,7 @@
         <li class="nav-item">
           <a
             class="nav-link {% if 'map' in segment %} active {% endif %}"
-            style="{% if 'map' in segment %} background-color: #DFF4F4 {% endif %}"
+            style="{% if 'map' in segment %} background-color: #DDECF3 {% endif %}"
             href=""
           >
             <i class="ni ni-pin-3 text-primary"></i>
@@ -70,8 +70,8 @@
         <li class="nav-item">
           <a
             class="nav-link {% if 'profile' in segment %} active {% endif %}"
-            href=""
-            style="{% if 'profile' in segment %} background-color: #DFF4F4 {% endif %}"
+            href="{% url 'profile' %}"
+            style="{% if 'profile' in segment %} background-color: #DDECF3 {% endif %}"
           >
             <i class="ni ni-single-02 text-yellow"></i>
             <span class="nav-link-text">Profile</span>

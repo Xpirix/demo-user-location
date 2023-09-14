@@ -3,5 +3,12 @@ from django.shortcuts import render, redirect
 
 @login_required
 def profile(request):
+    """
+    User profile template view
+    """
     user = request.user
-    return render(request, 'dashboard/profile.html', {'user': user})
+    return render(
+        request, 
+        'dashboard/profile.html', 
+        {'user': user, 'segment': 'profile'}
+        )
