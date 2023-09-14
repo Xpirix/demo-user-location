@@ -13,7 +13,6 @@
             <!-- Mask -->
             <span class="mask bg-gradient-default opacity-8"></span>
             <!-- Header container -->
-            <button id = "collap_button" class="pr-3 sidenav-toggler sidenav-toggler-dark btn btn-primary" type="button" data-action="sidenav-pin" data-target="#sidenav-main" style="  position: absolute; margin-bottom: 320px; margin-left: 20px;}"><i class="fas fa-bars"></i></button>
             <div class="container-fluid d-flex align-items-center">
                 <div class="row">
                     <div class="col-lg-7 col-md-10">
@@ -21,7 +20,9 @@
                             Hello {{ user.username }}
                         </h1>
                         <p class="text-white mt-0 mb-5">This is your profile page, you can update your profile information by clicking the Edit profile below</p>
-                        <button class="btn btn-neutral">Edit profile</button>
+                        <a href="{% url 'edit_profile' %}">
+                            <button class="btn btn-neutral">Edit profile</button>
+                        <a/>
                     </div>
                 </div>
             </div>
