@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from .models import CustomUser
 from appUsers.forms import UserProfileForm
 
 @login_required
@@ -48,9 +48,11 @@ def edit_profile(request):
 
 @login_required(login_url="/")
 def users_map(request):
-    
+
+    data = CustomUser.objects.all()
     args = {
         "segment": "users_map",
-
+        "users": data
     }
+
     return render(request, 'dashboard/users_map.html', args)

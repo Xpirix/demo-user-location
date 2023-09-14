@@ -26,9 +26,17 @@
 <script>
     var map = new maplibregl.Map({
         container: 'map', // container id
-        style: 'https://demotiles.maplibre.org/style.json', // style URL
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL', // style URL
         center: [0, 0], // starting position [lng, lat]
         zoom: 1 // starting zoom
     });
+
+    {% for item in users %}
+    {% comment %} console.log({{item }}) {% endcomment %}
+    var geometry = {{ item.location.geojson|safe }};
+    new maplibregl.Marker()
+        .setLngLat(geometry.coordinates)
+        .addTo(map);
+    {% endfor %}
 </script>
 {% endblock javascripts %}
