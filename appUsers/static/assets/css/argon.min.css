@@ -218,7 +218,7 @@ a
 {
     text-decoration: none;
 
-    color: #fcfdff;
+    /* color: #fcfdff; */
     background-color: transparent;
 }
 a:hover

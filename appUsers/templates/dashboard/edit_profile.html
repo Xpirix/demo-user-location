@@ -3,8 +3,21 @@
 
 {% block title %} Profile {% endblock title %}
 
-{% block content %}
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    .user-map {
+        .dj_map_wrapper {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock stylesheets %}
 
+{% block content %}
+<head>
+    {{ form.media }}
+</head>
     <div class="form-group">
         <!-- Page content -->
         <form method="POST" enctype="multipart/form-data">
@@ -63,6 +76,17 @@
                                         <label class="form-control-label">Address: </label>
                                         {{ form.address }}
                                         <span class="text-error">{{ form.address.errors }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">Location: </label>
+                                        <div class="user-map">
+                                            {{form.location}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

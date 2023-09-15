@@ -1,4 +1,4 @@
-from django import forms
+from django.contrib.gis import forms
 from .models import CustomUser
 
 class UserProfileForm(forms.ModelForm):
@@ -7,67 +7,27 @@ class UserProfileForm(forms.ModelForm):
     """
     class Meta:
         model = CustomUser
-        widgets = {
-            "username": forms.TextInput(
-                attrs={
-                    "placeholder": "Username",
-                    "class": "form-control",
-                    "type": "text",
-                    "id": "input-username",
-                    "name": "username",
-                }
-            ),
+        fields = ['first_name', 'last_name', 'phone', 'address', 'location']
 
-            "email": forms.EmailInput(
-                attrs={
-                    "placeholder": "E-mail",
-                    "class": "form-control",
-                    "type": "email",
-                    "id": "input-email",
-                    "name": "email_address",
-                }
-            ),
+    first_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
 
-            "first_name": forms.TextInput(
-                attrs={
-                    "placeholder": "First Name",
-                    "class": "form-control",
-                    "type": "text",
-                    "id": "input-first-name",
-                    "name": "first_name",
-                }
-            ),
+    last_name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
 
-            "last_name": forms.TextInput(
-                attrs={
-                    "placeholder": "Last Name",
-                    "class": "form-control",
-                    "type": "text",
-                    "id": "input-last-name",
-                    "name": "last_name",
-                }
-            ),
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
 
-            "phone": forms.TextInput(
-                attrs={
-                    "placeholder": "Phone Number",
-                    "class": "form-control",
-                    "type": "text",
-                    "id": "input-phone",
-                    "name": "phone",
-                }
-            ),
+    address = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
 
-            "address": forms.TextInput(
-                attrs={
-                    "placeholder": "Address",
-                    "class": "form-control",
-                    "type": "text",
-                    "id": "input-phone",
-                    "name": "phone",
-                }
-            ),
-        }
-
-        fields = ['first_name', 'last_name', 'phone', 'address']
+    location = forms.PointField(
+        widget=forms.OSMWidget(attrs={
+            'map_width': '100%', 
+            'map_height': 500})
+    )
 

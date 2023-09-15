@@ -29,8 +29,10 @@ def edit_profile(request):
         form = UserProfileForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
+            success = True
             return redirect('profile')
         else:
+            success = False
             msg = "Form is not valid"
 
     else:
