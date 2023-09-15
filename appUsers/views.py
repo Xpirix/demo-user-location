@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .models import CustomUser
 from appUsers.forms import UserProfileForm
-from django.contrib.auth import logout
+from django.core.serializers import serialize
+import json
 
 @login_required
 def profile(request):
@@ -49,11 +49,22 @@ def edit_profile(request):
 
 @login_required
 def users_map(request):
-
+    """
+    User map template view
+    """
+    fields = (
+        'username', 
+        'first_name', 
+        'last_name', 
+        'email', 
+        'phone',
+        'address',
+        'location'
+        )
     data = CustomUser.objects.all()
     args = {
         "segment": "users_map",
-        "users": data
+        "users": json.loads(serialize("geojson", data, fields=fields))
     }
 
     return render(request, 'dashboard/users_map.html', args)
