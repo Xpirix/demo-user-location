@@ -32,3 +32,21 @@ $ docker compose exec web python manage.py createsuperuser
 $ docker compose exec web python manage.py makemigrations
 $ docker compose exec web python manage.py migrate
 ```
+
+## Run test cases
+### Test login
+```sh
+$ docker compose exec web python manage.py test appUsers.tests.LoginTestCase
+```
+### Test Profile
+```sh
+$ docker compose exec web python manage.py test appUsers.tests.ProfileViewTestCase
+```
+### Test Profile Edit
+```sh
+$ docker compose exec web python manage.py test appUsers.tests.EditProfileViewTestCase
+```
+### Test Users map
+```sh
+$ docker compose exec web python manage.py test appUsers.tests.UsersMapViewTestCase
+```
