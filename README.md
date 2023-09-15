@@ -34,6 +34,10 @@ $ docker compose exec web python manage.py migrate
 ```
 
 ## Run test cases
+### Run all tests
+```sh
+$ docker compose exec web python manage.py test
+```
 ### Test login
 ```sh
 $ docker compose exec web python manage.py test appUsers.tests.LoginTestCase
