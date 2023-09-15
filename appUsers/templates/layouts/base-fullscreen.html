@@ -1,0 +1,73 @@
+{% load static %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Users location demo
+  </title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://kartoza.com/files/kartoza-logo-only.pn"
+  />
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" type="text/css">
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/argon.css' %}" type="text/css">
+
+  <script src="https://kit.fontawesome.com/2f0439ef64.js" crossorigin="anonymous"></script>
+  <style>
+      a:hover {
+          text-decoration: none;
+          color: rgba(0, 0, 0, .7);
+      }
+  </style>
+
+    <!-- Specific CSS goes HERE -->
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body class="bg-default">
+
+  <div class="main-content">
+
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+      <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-6">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    {% block content %}{% endblock content %}
+
+  </div>
+
+  {% include "includes/scripts.html" %}
+
+  <!-- Specific JS goes HERE -->
+  {% block javascripts %}
+  {% endblock javascripts %}
+
+  <script src="{% static 'assets/js/argon.js' %}"></script>
+
+</body>
+
+</html>

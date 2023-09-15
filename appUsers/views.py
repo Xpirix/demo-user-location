@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import CustomUser
 from appUsers.forms import UserProfileForm
+from django.contrib.auth import logout
 
 @login_required
 def profile(request):
@@ -46,7 +47,7 @@ def edit_profile(request):
     return render(request, 'dashboard/edit_profile.html', args)
 
 
-@login_required(login_url="/")
+@login_required
 def users_map(request):
 
     data = CustomUser.objects.all()
@@ -56,3 +57,4 @@ def users_map(request):
     }
 
     return render(request, 'dashboard/users_map.html', args)
+
