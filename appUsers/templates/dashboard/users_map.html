@@ -1,0 +1,102 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block title %} Profile {% endblock title %}
+
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    #map {
+        width: 100%;
+        height: 100vh;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div id="map"></div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+    var map = new maplibregl.Map({
+        container: 'map', // container id
+        style: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL', // style URL
+        center: [0, 0], // starting position [lng, lat]
+        zoom: 1 // starting zoom
+    });
+    const geojson = {{ users|safe }}
+    map.on('load', () => {
+        map.loadImage(
+            'static/assets/img/theme/special_marker.png',
+            (error, image) => {
+                if (error) throw error;
+                map.addImage('marker', image);
+                map.addSource('user_location', {
+                    'type': 'geojson',
+                    'data': geojson
+                });
+                map.addLayer({
+                    'id': 'user_location_layer',
+                    'type': 'symbol',
+                    'source': 'user_location',
+                    'layout': {
+                        'icon-image': 'marker',
+                        'icon-size': 1,
+                        'icon-offset': [0, -20]
+                    }
+                });
+            }
+        );
+    });
+
+    // When a click event occurs on a feature in the user_location_layer layer, open a popup at the
+    // location of the feature, with description HTML from its properties.
+    map.on('click', 'user_location_layer', (e) => {
+        const coordinates = e.features[0].geometry.coordinates.slice();
+        const description = '<div style="padding:10px;">'+
+            '<div class="row"><strong>First Name:&nbsp</strong><span>'+
+                e.features[0].properties['first_name']+'</span></div>'+
+            '<div class="row"><strong>Last Name:&nbsp</strong><span>'+
+                e.features[0].properties['last_name']+'</span></div>'+
+            '<div class="row"><strong>Username:&nbsp</strong><span>'+
+                e.features[0].properties['username']+'</span></div>'+
+            '<div class="row"><strong>Email address:&nbsp</strong><a href="mailto:'+ e.features[0].properties['email']+'" style="color:#007bff";>'+
+                e.features[0].properties['email']+'</a></span></div>'+
+            '<div class="row"><strong>Phone number:&nbsp</strong><span>'+
+                e.features[0].properties['phone']+'</span></div>'+
+            '<div class="row"><strong>Address:&nbsp</strong><span>'+
+                e.features[0].properties['address']+'</span></div>'+
+            '</div>'
+        
+        e.features[0].properties.description;
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        new maplibregl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the user_location_layer layer.
+    map.on('mouseenter', 'user_location_layer', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'user_location_layer', () => {
+        map.getCanvas().style.cursor = '';
+    });
+</script>
+{% endblock javascripts %}
