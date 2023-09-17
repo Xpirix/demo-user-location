@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import CustomUser
-from appUsers.forms import UserProfileForm
+from appUsers.forms import UserProfileForm, SignUpForm
 from django.core.serializers import serialize
 import json
 
@@ -71,3 +71,40 @@ def users_map(request):
 
     return render(request, 'dashboard/users_map.html', args)
 
+
+def signup(request):
+    """
+    Register a new user template view
+    """
+
+    msg = None
+    success = False
+
+    try:
+        if request.method == 'POST':
+            form = SignUpForm(request.POST)
+            if form.is_valid():
+                form.save()
+                success = True
+                return redirect('login')
+
+            else:
+                msg = "Form is not valid"
+        else:
+            form = SignUpForm()
+        
+        args = {
+            "form": form,
+            "msg": msg,
+            "success": success
+        }
+        return render(request, 'registration/register.html', args)
+
+    except Exception as e:
+        msg = 'An Error has Occurred'
+        args = {
+            "form": form,
+            "msg": msg,
+            "success": success
+        }
+        return render(request, 'registration/register.html', args)
