@@ -1,9 +1,9 @@
 # Demo for users location web application
-This application uses Django 4.2 as a Framework. For the interface, Argon admin template and Bootstrap have been integrated into the code. The are used for the login/register and main pages which are User location map, profile and profile edition.
+This application uses Django 4.2 as a Framework. For the interface, Argon admin template and Bootstrap have been integrated into the code. They are used for the login/register and main pages which are User location map, profile and profile edition.
 
-Docker is required to start the application. Get docker here: https://docs.docker.com/get-docker/. For GNU/Linux OS based, docker engine is prefered.
+The app is dockerized to facilitate its startup and to be a standalone app. Thus,  docker is required to start the application. Get docker here: https://docs.docker.com/get-docker/. For GNU/Linux OS based, docker engine is prefered.
 
-It has been dockerized to facilitate its startup and to be a standalone app. There are two docker services running which are `web` for Django and `db` for the PostGIS database.
+There are two docker services running which are `web` for Django and `db` for the PostGIS database.
 
 ## Quick start
 
@@ -48,7 +48,7 @@ Test cases are a fundamental part of the development because they contribute to 
 
 You can run unit tests using the following comands. These test automatically run each time when a pull request is open on the branch `main`. On GitHub, you can access to it in your pull request check tab.
 
-Currently, there are 14 test cases in the entire app relative to login, profile view, profile editing, map view and new user registration. You can run all of them in one time or one by one.
+Currently, there are 14 test cases in the entire app. They are relative to login, profile view, profile editing, map view and new user registration. You can run all of them in one time or one by one.
 ### Run all tests
 ```sh
 $ docker compose exec web python manage.py test
