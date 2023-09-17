@@ -14,3 +14,15 @@ class CustomUser(AbstractUser):
 
     class Meta:
         verbose_name = 'User'
+
+class UserActivityLog(models.Model):
+    """
+    Model to log the user login/logout 
+    activity by showing who and when on the admin page
+    """
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    action = models.CharField(max_length=10)  # 'login' or 'logout'
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.action} - {self.timestamp}'
