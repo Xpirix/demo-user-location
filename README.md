@@ -54,3 +54,7 @@ $ docker compose exec web python manage.py test appUsers.tests.EditProfileViewTe
 ```sh
 $ docker compose exec web python manage.py test appUsers.tests.UsersMapViewTestCase
 ```
+### Test Register a new user
+```sh
+$ docker compose exec web python manage.py test appUsers.tests.SignupViewTestCase
+```

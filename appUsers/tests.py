@@ -3,6 +3,7 @@ from appUsers.models import CustomUser
 from django.urls import reverse
 from django.contrib.gis.geos import Point
 import json
+from appUsers.forms import SignUpForm
 
 class LoginTestCase(TestCase):
     """
@@ -196,3 +197,48 @@ class UsersMapViewTestCase(TestCase):
 
         # Check if the user is redirected to the login page
         self.assertRedirects(response, reverse('login') + '?next=/')
+
+class SignupViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.signup_url = reverse('register')
+
+    def test_signup_view_get(self):
+        response = self.client.get(self.signup_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'registration/register.html')
+        self.assertIsInstance(response.context['form'], SignUpForm)
+
+    def test_signup_view_post_valid_data(self):
+        self.location = Point(12.345, 67.890)
+        data = {
+            'username': 'testuser',
+            'first_name':'John',
+            'last_name':'Doe',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',  # This will make the form invalid
+            'email': 'john@example.com',
+            'phone': '123-456-7890',
+            'address': '123 Main St',
+            'location': self.location.wkt,
+        }
+        response = self.client.post(self.signup_url, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+        self.assertTrue(CustomUser.objects.filter(username='testuser').exists())
+
+    def test_signup_view_post_invalid_data(self):
+        data = {
+            'username': 'testuser',
+            'password1': 'testpassword123',
+            'password2': 'mismatchedpassword',  # This will make the form invalid
+        }
+        response = self.client.post(self.signup_url, data)
+        self.assertEqual(response.status_code, 200)  # Form submission should stay on the same page
+        self.assertFormError(response, 'form', 'password2', ['The two password fields didn’t match.', 'Password and confirm password do not match'])
+
+    def test_signup_view_post_form_not_valid(self):
+        data = {}  # Submit empty data to make the form invalid
+        response = self.client.post(self.signup_url, data)
+        self.assertEqual(response.status_code, 200)  # Form submission should stay on the same page
+        self.assertContains(response, 'Form is not valid', status_code=200)
