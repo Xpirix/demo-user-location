@@ -25,6 +25,11 @@ $ docker compose up
 $ docker compose exec web python manage.py createsuperuser
 ```
 
+### 4. Open the app on a web browser
+Open a web browser and navigate to http://localhost:8000 to log in or register a new user.
+
+Navigate to http://localhost:8000/admin for log in to the Django administration page. 
+
 ## Usefull commands
 
 ### Create migration and migrate to the DB
@@ -34,6 +39,7 @@ $ docker compose exec web python manage.py migrate
 ```
 
 ## Run test cases
+You can run unit tests using the following comands:
 ### Run all tests
 ```sh
 $ docker compose exec web python manage.py test
